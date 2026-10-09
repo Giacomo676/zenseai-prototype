@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon-container">
+<g clip-path="url(#clip0_0_391)">
+<path id="code_blocks" d="M16.9793 32.8292L19.3249 30.4835L12.8414 24L19.2544 17.5871L16.8812 15.2414L8.15012 24L16.9793 32.8292ZM31.0482 32.8292L39.8499 24L31.0482 15.1708L28.6751 17.5165L35.1586 24L28.6751 30.4835L31.0482 32.8292ZM4.07224 48C2.96118 48 2.00471 47.5991 1.20282 46.7972C0.400941 45.9953 0 45.0388 0 43.9278V4.07224C0 2.96118 0.400941 2.0047 1.20282 1.20282C2.00471 0.40094 2.96118 0 4.07224 0H43.9278C45.0388 0 45.9953 0.40094 46.7972 1.20282C47.5991 2.0047 48 2.96118 48 4.07224V43.9278C48 45.0388 47.5991 45.9953 46.7972 46.7972C45.9953 47.5991 45.0388 48 43.9278 48H4.07224Z" fill="url(#paint0_linear_0_391)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_391" x1="24" y1="0" x2="24" y2="48" gradientUnits="userSpaceOnUse">
+<stop stop-color="#DCE7FB"/>
+<stop offset="1" stop-color="#94B6F9"/>
+</linearGradient>
+<clipPath id="clip0_0_391">
+<rect width="48" height="48" rx="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>
