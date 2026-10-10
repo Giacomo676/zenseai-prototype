@@ -1,0 +1,10 @@
+{
+  "description": "Delivers an interactive, responsive onboarding journey with dynamic sidebar navigation, enabling users to smoothly complete tasks with precise visual fidelity.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
