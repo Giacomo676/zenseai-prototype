@@ -709,27 +709,27 @@ button {
 }
 
 .tour-nav-1 {
-  top: 100px;
-}
-
-.tour-nav-2 {
   top: 164px;
 }
 
-.tour-nav-3 {
+.tour-nav-2 {
   top: 228px;
 }
 
-.tour-nav-4 {
+.tour-nav-3 {
   top: 292px;
 }
 
-.tour-nav-5 {
+.tour-nav-4 {
   top: 356px;
 }
 
-.tour-nav-6 {
+.tour-nav-5 {
   top: 420px;
+}
+
+.tour-nav-6 {
+  top: 484px;
 }
 
 .tour-workspace-card {
