@@ -463,7 +463,7 @@ function ProjectContent({
 
 function Workspace({ onBack }: { onBack: () => void }) {
   const [expanded, setExpanded] = useState(false);
-  const [tourStep, setTourStep] = useState<number | null>(null);
+  const [tourStep, setTourStep] = useState<number | null>(0);
   const [profileOpen, setProfileOpen] = useState(false);
   const [created, setCreated] = useState(false);
   const [phase, setPhase] = useState<"workspace" | "intro" | "project">(
@@ -471,8 +471,12 @@ function Workspace({ onBack }: { onBack: () => void }) {
   );
   const [projectStep, setProjectStep] = useState<number | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [onboardingComplete, setOnboardingComplete] = useState(false);
 
   function startOnboarding() {
+    if (!onboardingComplete) return;
+
+    setOnboardingComplete(false);
     setProfileOpen(false);
     setMenuOpen(false);
     setProjectStep(null);
@@ -503,9 +507,14 @@ function Workspace({ onBack }: { onBack: () => void }) {
     if (projectStep === 0) setMenuOpen(true);
     if (projectStep === 1) setMenuOpen(false);
 
-    setProjectStep(
-      projectStep >= projectTour.length - 1 ? null : projectStep + 1,
-    );
+    if (projectStep >= projectTour.length - 1) {
+      setProjectStep(null);
+      setMenuOpen(false);
+      setOnboardingComplete(true);
+      return;
+    }
+
+    setProjectStep(projectStep + 1);
   }
 
   return (
@@ -515,15 +524,17 @@ function Workspace({ onBack }: { onBack: () => void }) {
           className="header-home-button"
           type="button"
           onClick={startOnboarding}
-          aria-label="Start onboarding"
-          title="Start onboarding"
+          disabled={!onboardingComplete}
+          aria-label={onboardingComplete ? "Restart onboarding" : "Zensar"}
+          title={onboardingComplete ? "Restart onboarding" : undefined}
           style={{
             display: "inline-flex",
             alignItems: "center",
             padding: 0,
             border: 0,
             background: "transparent",
-            cursor: "pointer",
+            cursor: onboardingComplete ? "pointer" : "default",
+            opacity: 1,
           }}
         >
           <img
@@ -653,6 +664,9 @@ function Workspace({ onBack }: { onBack: () => void }) {
           onSkip={() => {
             setMenuOpen(false);
             setProjectStep(null);
+            if (projectStep === projectTour.length - 1) {
+              setOnboardingComplete(true);
+            }
           }}
         />
       )}
