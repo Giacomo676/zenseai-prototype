@@ -167,28 +167,22 @@ function TourCard({
   onSkip: () => void;
 }) {
   const item = tour[step];
-
   return (
     <aside
       className={`tour-card tour-${item.target}`}
       aria-live="polite"
+      style={{ zIndex: 50, overflow: "visible" }}
     >
-      <span
-        className="tour-arrow"
-        style={step === 0 ? { top: "1px", bottom: "201px" } : undefined}
-      />
-
+      <span className="tour-arrow" />
       <div className="tour-body">
         <h2>{item.title}</h2>
         <p>{item.description}</p>
-
         <div className={`tour-actions ${step > 0 ? "end" : ""}`}>
           {step === 0 ? (
             <>
               <button className="tour-link" onClick={onSkip}>
                 Skip the tour <span>»</span>
               </button>
-
               <span className="tour-right">
                 <button className="secondary" onClick={onBack}>
                   ‹&nbsp; Back
@@ -283,7 +277,11 @@ function ProjectTourCard({
 }) {
   const item = projectTour[step];
   return (
-    <aside className={`tour-card ${item.target}`}>
+    <aside
+      className={`tour-card ${item.target}`}
+      aria-live="polite"
+      style={{ zIndex: 50, overflow: "visible" }}
+    >
       <span className="tour-arrow" />
       <div className="tour-body">
         <h2>{item.title}</h2>
@@ -320,7 +318,7 @@ function ProjectContent({
 }) {
   return (
     <>
-      <div className="project-subheader">
+      <div className="project-subheader" style={{ zIndex: 18 }}>
         <button className="workspace-pill" type="button">
           <img src={`${assets}/33049.svg`} alt="" />
           My Workspace
@@ -465,7 +463,7 @@ function ProjectContent({
 
 function Workspace({ onBack }: { onBack: () => void }) {
   const [expanded, setExpanded] = useState(false);
-  const [tourStep, setTourStep] = useState<number | null>(0);
+  const [tourStep, setTourStep] = useState<number | null>(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const [created, setCreated] = useState(false);
   const [phase, setPhase] = useState<"workspace" | "intro" | "project">(
@@ -474,15 +472,24 @@ function Workspace({ onBack }: { onBack: () => void }) {
   const [projectStep, setProjectStep] = useState<number | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  function startOnboarding() {
+    setProfileOpen(false);
+    setMenuOpen(false);
+    setProjectStep(null);
+    setPhase("workspace");
+    setTourStep(0);
+  }
+
   function nextTour() {
-    setTourStep((current) => {
-      if (current === null) return null;
-      if (current >= tour.length - 1) {
-        setPhase("intro");
-        return null;
-      }
-      return current + 1;
-    });
+    if (tourStep === null) return;
+
+    if (tourStep >= tour.length - 1) {
+      setTourStep(null);
+      setPhase("intro");
+      return;
+    }
+
+    setTourStep(tourStep + 1);
   }
 
   function finishIntro() {
@@ -491,23 +498,41 @@ function Workspace({ onBack }: { onBack: () => void }) {
   }
 
   function nextProjectTour() {
-    setProjectStep((current) => {
-      if (current === null) return null;
-      if (current === 0) setMenuOpen(true);
-      if (current === 1) setMenuOpen(false);
-      return current >= projectTour.length - 1 ? null : current + 1;
-    });
+    if (projectStep === null) return;
+
+    if (projectStep === 0) setMenuOpen(true);
+    if (projectStep === 1) setMenuOpen(false);
+
+    setProjectStep(
+      projectStep >= projectTour.length - 1 ? null : projectStep + 1,
+    );
   }
 
   return (
     <main className={`workspace ${expanded ? "sidebar-expanded" : ""}`}>
-      <header className="app-header" style={{ zIndex: 10 }}>
-        <img
-          src={`${assets}/ca8af.svg`}
-          className="header-logo"
-          alt="Zensar"
-          style={{ width: "95px" }}
-        />
+      <header className="app-header" style={{ zIndex: 40 }}>
+        <button
+          className="header-home-button"
+          type="button"
+          onClick={startOnboarding}
+          aria-label="Start onboarding"
+          title="Start onboarding"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            padding: 0,
+            border: 0,
+            background: "transparent",
+            cursor: "pointer",
+          }}
+        >
+          <img
+            src={`${assets}/ca8af.svg`}
+            className="header-logo"
+            alt="Zensar"
+            style={{ width: "95px" }}
+          />
+        </button>
         <div className="header-controls">
           <button
             className={`organisation ${tourStep === 0 ? "focused" : ""}`}
@@ -571,7 +596,9 @@ function Workspace({ onBack }: { onBack: () => void }) {
           {navItems.map((item, index) => (
             <button
               className={`${item.active ? "active" : ""} ${
-                tourStep === index + 3 ? "focused-round" : ""
+                tourStep !== null && tour[tourStep]?.target === `nav-${index}`
+                  ? "focused-round"
+                  : ""
               }`}
               key={item.label}
               type="button"
@@ -602,6 +629,9 @@ function Workspace({ onBack }: { onBack: () => void }) {
             className={`create-card ${tourStep === 9 ? "card-focus" : ""}`}
             type="button"
             onClick={() => {
+              setProfileOpen(false);
+              setMenuOpen(false);
+              setProjectStep(null);
               setCreated(true);
               setTourStep(null);
               setPhase("intro");

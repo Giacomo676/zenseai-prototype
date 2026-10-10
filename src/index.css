@@ -1408,3 +1408,61 @@ button {
     right: 102px;
   }
 }
+@media (min-width: 901px) {
+  .tour-profile {
+    top: 12px;
+    right: 200px;
+    width: 400px;
+    padding-top: 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tour-profile .tour-body {
+    width: 100%;
+  }
+
+  .tour-profile .tour-arrow {
+    position: absolute;
+    top: 16px;
+    right: -11px;
+    left: auto;
+    width: 0;
+    height: 0;
+    margin: 0;
+    border: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 12px solid #fff;
+    transform: none;
+  }
+
+  .profile.focused {
+    border-radius: 4px;
+  }
+}
+.app-header {
+  z-index: 40;
+}
+
+.project-subheader {
+  z-index: 18;
+}
+
+.tour-card {
+  z-index: 50;
+}
+
+.header-home-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.header-home-button:focus-visible {
+  outline: 2px solid #1c95e2;
+  outline-offset: 4px;
+}
