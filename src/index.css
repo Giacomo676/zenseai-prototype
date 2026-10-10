@@ -98,10 +98,11 @@ button {
 
 .login-zensar {
   position: absolute;
-  top: 16px;
-  left: max(24px, calc(50% - 268px + 24px));
-  width: 96px;
-  height: 16px;
+  top: 52px;
+  left: max(24px, calc(50% - 196px));
+  width: 95px;
+  height: auto;
+  display: block;
 }
 
 .login-content {
