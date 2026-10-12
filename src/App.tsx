@@ -33,6 +33,12 @@ const tour = [
     target: "panel",
   },
   {
+    title: "New Chat",
+    description:
+      "Get started with a new chat, write prompts and instructions to access the power of ZenseAI.",
+    target: "nav-0",
+  },
+  {
     title: "Dashboard",
     description:
       "Get a quick, data-driven view of activity, insights and performance metrics.",
@@ -637,7 +643,9 @@ function Workspace({ onBack }: { onBack: () => void }) {
             </span>
           </div>
           <button
-            className={`create-card ${tourStep === 9 ? "card-focus" : ""}`}
+            className={`create-card ${tourStep !== null && tour[tourStep]?.target === "workspace-card"
+                ? "card-focus"
+                : ""}`}
             type="button"
             onClick={() => {
               setProfileOpen(false);
