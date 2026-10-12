@@ -1467,3 +1467,27 @@ button {
   outline: 2px solid #1c95e2;
   outline-offset: 4px;
 }
+/* Sidebar tour positions: New Chat is the first item. */
+.tour-nav-0 {
+  top: 100px;
+  left: 48px;
+}
+
+.sidebar-expanded .tour-nav-0 {
+  left: 186px;
+}
+
+.tour-nav-1 { top: 164px; }
+.tour-nav-2 { top: 228px; }
+.tour-nav-3 { top: 292px; }
+.tour-nav-4 { top: 356px; }
+.tour-nav-5 { top: 420px; }
+.tour-nav-6 { top: 484px; }
+
+@media (max-width: 640px) {
+  .tour-nav-0,
+  .sidebar-expanded .tour-nav-0 {
+    right: 12px;
+    left: auto;
+  }
+}
